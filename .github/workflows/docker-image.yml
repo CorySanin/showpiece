@@ -40,6 +40,12 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.GH_REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push master
         if: ${{ github.ref == 'refs/heads/master' }}
@@ -49,7 +55,7 @@ jobs:
           push: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
           tags: |
             "${{ secrets.DOCKER_USERNAME }}/showpiece:latest"
-            "${{ env.GH_REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
+            ${{ steps.meta.outputs.tags }}
           platforms: linux/amd64,linux/arm64
           build-args: |
             "COMMIT_SHA=${{ github.sha }}"

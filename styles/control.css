@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+}
+
+h1 {
+    font-size: 2.5em;
+    line-height: 1.2em;
+}
+
+h2 {
+    font-size: 1.9em;
+    line-height: 1.2em;
+}
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.2em;
+}
+
+h4 {
+    font-size: 1.3em;
+    line-height: 1.2em;
+}
+
+h5 {
+    font-size: 1.2em;
+    line-height: 1.2em;
+}
+
+h6 {
+    font-size: 1.1em;
+    line-height: 1.2em;
+}
+
+#sidebar {
+    background-color: theme('colors.indigo.700');
+    color: theme('colors.indigo.50');
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow: auto;
+    width: 300px;
+    transition: left .25s ease;
+}
+
+#sidebar li a {
+    display: block;
+    padding: 8px 12px;
+    margin-bottom: 2px;
+    font-size: 16pt;
+    border-radius: .4em;
+    user-select: none;
+}
+
+#sidebar li a:hover {
+    background-color: theme('colors.indigo.600');
+}
+
+#sidebar li a:active,
+#sidebar li a.active {
+    background-color: theme('colors.indigo.800');
+}
+
+.content {
+    margin-left: 300px;
+    padding: 8px 32px;
+    transition: margin .25s ease;
+}
+
+.tablelist>button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    height: 100px;
+    border: 1px solid theme('colors.indigo.300');
+    line-height: 80px;
+    padding: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+}
+
+.tablelist>button:hover {
+    color: #fff;
+    background-color: theme('colors.indigo.600');
+}
+
+.tablelist>button:active,
+.tablelist>button:focus,
+.tablelist>button.active {
+    color: #fff;
+    background-color: theme('colors.indigo.800');
+}
+
+.tablelist>button:first-of-type {
+    border-radius: .75em .75em 0 0;
+}
+
+.tablelist>button:nth-last-of-type(1) {
+    border-radius: 0 0 .75em .75em;
+}
+
+.tablelist>button:nth-of-type(n + 2) {
+    border-top: none;
+}
+
+@media screen and (max-width: 675px) {
+    #sidebar {
+        left: -300px;
+    }
+    .content {
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .tablelist>button img{
+        display: none;
+    }
+}

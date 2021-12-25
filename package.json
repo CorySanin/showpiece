@@ -1,0 +1,21 @@
+{
+  "name": "showpiece",
+  "version": "1.0.0",
+  "description": "A simple digital signage solution built on the web",
+  "main": "index.js",
+  "scripts": {
+    "build": "tailwindcss -i ./styles/control.css -o ./assets/css/control.css",
+    "watch": "tailwindcss -i ./styles/control.css -o ./assets/css/control.css --watch"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "3.1.6",
+    "express": "^4.17.2",
+    "express-ws": "5.0.2",
+    "json5": "^2.2.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.0.7"
+  }
+}

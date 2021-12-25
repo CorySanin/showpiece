@@ -1,0 +1,59 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const loc = window.location;
+    const server = `${loc.protocol === 'https' ? 'wss' : 'ws'}://${loc.host}/control`;//"<%= server %>/control";
+
+    function handlemessage(data) {
+        const msg = JSON.parse(data.data);
+        if (msg.type === 'module') {
+            msg.type = 'url';
+            msg.body = `/modules/${msg.body}/`
+        }
+        if (msg.type === 'url') {
+            var iframe = document.createElement('iframe');
+            iframe.src = msg.body;
+            iframe.style['z-index'] = -100;
+            document.body.append(iframe);
+            onIframeLoad(iframe, function (iframe) {
+                iframe.style['z-index'] = 0;
+                removeIframes(iframe);
+            });
+        }
+        else if (msg.type === 'none') {
+            removeIframes();
+        }
+    }
+
+    function removeIframes(except = null) {
+        document.querySelectorAll('iframe').forEach(function (e) {
+            if (e != except) {
+                document.body.removeChild(e);
+            }
+        });
+    }
+
+    function onIframeLoad(iframe, callback) {
+        try {
+            var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            if (iframeDoc.readyState == 'complete') {
+                callback(iframe);
+            }
+            else {
+                setTimeout(onIframeLoad, 100, iframe, callback);
+            }
+        }
+        catch {
+            callback(iframe);
+        }
+    }
+
+    function connect() {
+        var ws = new WebSocket(server);
+
+        ws.onmessage = handlemessage;
+        ws.onclose = function () {
+            setTimeout(connect, 3000);
+        }
+    }
+
+    connect();
+});

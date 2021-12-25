@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+<head>
+    <title>Showpiece Controller</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗿</text></svg>">
+    <link rel="stylesheet" href="/assets/css/control.css?v1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/assets/js/load.js"></script>
+</head>
+
+<body class="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
+    <% page='load' %>
+        <%- include('sidebar') %>
+            <div class="content">
+                <h1>Load</h1>
+                <div class="tablelist" id="modules">
+                    <% modules.forEach(function(module) { %>
+                        <button>
+                            <% if (module.icon) { %><img alt="<%= module.name %> module" class="max-h-full inline-block" src="<%= module.icon %>" /><% } %>
+                            <span class="module-name ml-2"><%= module.name %></span>
+                        </button>
+                        <% }); %>
+                </div>
+            </div>
+
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+   showpiece:
+      container_name: showpiece
+      build:
+         context: ./
+         dockerfile: ./Dockerfile
+      ports:
+         - 8080:8080
+      volumes:
+         - /etc/localtime:/etc/localtime:ro
+         - ./config:/usr/src/showpiece/config

@@ -48,11 +48,11 @@ jobs:
           target: deploy
           push: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
           tags: |
-            ${DOCKER_USERNAME}/showpiece:latest
-            ghcr.io/${github.repository_owner}/showpiece:latest
+            "${DOCKER_USERNAME}/showpiece:latest"
+            "ghcr.io/${github.repository_owner}/showpiece:latest"
           platforms: linux/amd64,linux/arm64
           build-args: |
-            COMMIT_SHA=${{ github.sha }}
-            BRANCH=${{ env.GIT_BRANCH }}
+            "COMMIT_SHA=${{ github.sha }}"
+            "BRANCH=${{ env.GIT_BRANCH }}"
           cache-from: type=gha,scope=${{ github.workflow }}
           cache-to: type=gha,mode=max,scope=${{ github.workflow }}

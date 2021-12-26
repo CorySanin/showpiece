@@ -1,0 +1,7 @@
+{
+    // Port for the viewer
+    "port": 8080,
+    // Port for the control panel
+    // (use a different port to restrict access to this interface)
+    "controlport": 8080
+}

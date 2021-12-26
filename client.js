@@ -10,11 +10,6 @@ class Client {
         app.set('view engine', 'ejs');
         app.set('view options', VIEWOPTIONS);
 
-        let server = options.server || null;
-        if (server) {
-            server = server.replace(/^http/i, 'ws');
-        }
-
         app.get('/', (req, res) => {
             res.render('client', {}, (err, html) => {
                 if (!err) {
@@ -28,7 +23,7 @@ class Client {
 
         app.get('/client.js', (req, res) => {
             res.render('clientjs', {
-                server
+                server: `${req.protocol.replace(/^http/i, 'ws')}://${req.hostname}:${req.socket.localPort}`
             }, (err, js) => {
                 if (!err) {
                     res.type('text/javascript').send(js);

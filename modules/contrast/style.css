@@ -23,7 +23,7 @@ body>div {
     height: 100vmin;
 }
 
-#second {
+.second {
     margin: auto;
     position: absolute;
     top: 0;
@@ -35,11 +35,15 @@ body>div {
     transition: transform .2s ease-in-out;
 }
 
-#second>div{
+.second>div {
     width: 100%;
     height: 47vmin;
     background-color: #C62828;
     border-radius: 5vmin;
+}
+
+.second.s2 {
+    visibility: hidden;
 }
 
 #minute {
@@ -53,11 +57,11 @@ body>div {
     height: 100%;
 }
 
-#minute>div{
+#minute>div {
     width: 100%;
     height: 50vmin;
     margin-top: 14vmin;
-    border:.4vmin solid #fff;
+    border: .4vmin solid #fff;
     border-radius: 1vmin;
 }
 
@@ -72,11 +76,11 @@ body>div {
     height: 60vmin;
 }
 
-#hour>div{
+#hour>div {
     width: 100%;
     height: 50%;
     margin-top: 5vmin;
-    border:.6vmin solid #fff;
+    border: .6vmin solid #fff;
     border-radius: 2vmin;
 }
 
@@ -93,7 +97,7 @@ body>div {
     border-radius: 100%;
 }
 
-#numbers{
+#numbers {
     position: absolute;
     top: 0;
     left: 0;
@@ -103,7 +107,7 @@ body>div {
     font-family: 'Fjalla One', sans-serif;
 }
 
-#numbers div{
+#numbers div {
     position: absolute;
     margin: auto;
     width: 33vmin;

@@ -15,6 +15,14 @@
         <%- include('sidebar') %>
             <div class="content">
                 <h1>Load</h1>
+                <div class="mb-4">
+                    <h2><label for="urltxt">URL</label></h2>
+                    <div class="flex gap-4">
+                        <input id="urltxt" class="flex-1" type="url" placeholder="https://"/>
+                        <button id="submitbtn" class="flex-none">Submit</button>
+                    </div>
+                </div>
+                <h2>Module</h2>
                 <div class="tablelist" id="modules">
                     <% modules.forEach(function(module) { %>
                         <button>

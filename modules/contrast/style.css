@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    background-color: #000;
+    box-sizing: border-box;
+}
+
+body * {
+    box-sizing: inherit;
+}
+
+body>div {
+    margin: auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100vmin;
+    height: 100vmin;
+}
+
+#second {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: .5vmin;
+    height: 85vmin;
+    transition: transform .2s ease-in-out;
+}
+
+#second>div{
+    width: 100%;
+    height: 47vmin;
+    background-color: #C62828;
+    border-radius: 5vmin;
+}
+
+#minute {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 1vmin;
+    height: 100%;
+}
+
+#minute>div{
+    width: 100%;
+    height: 50vmin;
+    margin-top: 14vmin;
+    border:.4vmin solid #fff;
+    border-radius: 1vmin;
+}
+
+#hour {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 2.5vmin;
+    height: 60vmin;
+}
+
+#hour>div{
+    width: 100%;
+    height: 50%;
+    margin-top: 5vmin;
+    border:.6vmin solid #fff;
+    border-radius: 2vmin;
+}
+
+#center {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 2vmin;
+    height: 2vmin;
+    background-color: #fff;
+    border-radius: 100%;
+}
+
+#numbers{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    color: #EEEEEE;
+    font-family: 'Fjalla One', sans-serif;
+}
+
+#numbers div{
+    position: absolute;
+    margin: auto;
+    width: 33vmin;
+    height: 33vmin;
+    line-height: 35vmin;
+    font-size: 33vmin;
+    text-align: center;
+}
+
+#numbers #e,
+#numbers #w {
+    width: 25vmin;
+}
+
+#numbers #n {
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+#numbers #e {
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#numbers #s {
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#numbers #w {
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+
+@keyframes counterclockwise {
+    from {
+        transform: rotate(360deg);
+    }
+
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes pulse {
+    from {
+        width: 45vmin;
+        height: 45vmin;
+    }
+
+    50% {
+        width: 35vmin;
+        height: 35vmin;
+    }
+
+    to {
+        width: 45vmin;
+        height: 45vmin;
+    }
+}

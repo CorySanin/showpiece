@@ -14,7 +14,8 @@ const configpath = process.env.CONFIG || path.join('config', 'config.json5');
     const port = process.env.PORT || configfile.port || 8080;
     const config ={
         port,
-        controlport: process.env.CONTROLPORT || configfile.controlport || port
+        controlport: process.env.CONTROLPORT || configfile.controlport || port,
+        weather: configfile.weather
     };
     const c = new client(config);
     const s = new server(config);

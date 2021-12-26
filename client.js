@@ -1,4 +1,5 @@
 const express = require('express');
+const weather = require('./weather');
 
 const VIEWOPTIONS = {
     outputFunctionName: 'echo'
@@ -33,6 +34,17 @@ class Client {
                 }
             });
         });
+
+        if(options.weather && options.weather.key){
+            let w = new weather(options.weather);
+            app.get('/api/weather', async (req, res) => {
+                res.send(await w.getSimpleWeather());
+            });
+
+            app.get('/api/all-weather', async (req, res) => {
+                res.send(await w.getAllWeather());
+            });
+        }
     }
 
     middleware() {

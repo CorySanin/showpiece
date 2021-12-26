@@ -3,5 +3,12 @@
     "port": 8080,
     // Port for the control panel
     // (use a different port to restrict access to this interface)
-    "controlport": 8080
+    "controlport": 8080,
+    // (optional) provide weather data to modules that support it
+    "weather": {
+        // Provide an OpenWeatherMap API key
+        // https://openweathermap.org/price
+        "key": "not0a0real0key00281f631aef6ad3a1",
+        "city": "chicago"
+    }
 }

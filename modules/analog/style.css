@@ -4,6 +4,7 @@ body {
     width: 100%;
     background-color: #03A9F4;
     box-sizing: border-box;
+    cursor: none;
 }
 
 body * {
@@ -93,7 +94,7 @@ body>div {
     height: 91.5vmin;
 }
 
-#second>div{
+#second>div {
     width: 100%;
     height: 5vmin;
     background-color: white;
@@ -111,7 +112,7 @@ body>div {
     height: 100%;
 }
 
-#minute>div{
+#minute>div {
     width: 100%;
     height: 50vmin;
     margin-top: 14vmin;
@@ -129,7 +130,7 @@ body>div {
     height: 60vmin;
 }
 
-#hour>div{
+#hour>div {
     width: 100%;
     height: 50%;
     margin-top: 5vmin;

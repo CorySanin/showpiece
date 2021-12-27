@@ -41,6 +41,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
     setInterval(updateHands, 50);
 
-    getParams();
     updateHands();
 });

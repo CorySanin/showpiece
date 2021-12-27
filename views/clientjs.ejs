@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const loc = window.location;
-    const server = `${loc.protocol === 'https' ? 'wss' : 'ws'}://${loc.host}/control`;
+    const server = `${loc.protocol === 'https:' ? 'wss' : 'ws'}://${loc.host}/control`;
 
     function handlemessage(data) {
         const msg = JSON.parse(data.data);

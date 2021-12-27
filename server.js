@@ -3,6 +3,7 @@ const fs = require('fs');
 const fsp = fs.promises;
 const express = require('express');
 const ExpressWS = require('express-ws');
+const version = require('./version');
 
 const VIEWOPTIONS = {
     outputFunctionName: 'echo'
@@ -29,6 +30,10 @@ class Server {
             clients.push(ws);
             console.log(`new client connected: ${req.ip}`);
             this.send(this._current);
+            this.send({
+                type: 'version',
+                body: version
+            });
             ws.on('close', (ws) => {
                 clients.splice(clients.indexOf(ws), 1);
                 console.log(`client disconnected: ${req.ip}`);

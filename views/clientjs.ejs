@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const loc = window.location;
-    const server = `${loc.protocol === 'https' ? 'wss' : 'ws'}://${loc.host}/control`;//"<%= server %>/control";
+    const server = `${loc.protocol === 'https' ? 'wss' : 'ws'}://${loc.host}/control`;
 
     function handlemessage(data) {
         const msg = JSON.parse(data.data);
@@ -8,7 +8,12 @@ document.addEventListener('DOMContentLoaded', function () {
             msg.type = 'url';
             msg.body = `/modules/${msg.body}/`
         }
-        if (msg.type === 'url') {
+        if (msg.type === 'version') {
+            if (msg.body !== <%= version %>) {
+                location.reload(true);
+            }
+        }
+        else if (msg.type === 'url') {
             var iframe = document.createElement('iframe');
             iframe.src = msg.body;
             iframe.style['z-index'] = -100;

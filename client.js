@@ -1,5 +1,6 @@
 const express = require('express');
 const weather = require('./weather');
+const version = require('./version');
 
 const VIEWOPTIONS = {
     outputFunctionName: 'echo'
@@ -24,7 +25,7 @@ class Client {
 
         app.get('/client.js', (req, res) => {
             res.render('clientjs', {
-                server: `${req.protocol.replace(/^http/i, 'ws')}://${req.hostname}:${req.socket.localPort}`
+                version
             }, (err, js) => {
                 if (!err) {
                     res.type('text/javascript').send(js);

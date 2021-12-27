@@ -1,4 +1,4 @@
-FROM node:16-alpine3.14
+FROM public.ecr.aws/docker/library/node:16-alpine3.14
 
 WORKDIR /usr/src/showpiece
 

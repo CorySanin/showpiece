@@ -47,3 +47,5 @@ Navigate to `http://localhost:8080` on the "sign." Content can be loaded from th
 Screens made for Showpiece are called modules. Each module has its own subdirectory inside of the `modules` directory. The module must contain an `index.html` and any additional files needed for its function (CSS, JS, images, etc). An `icon.png` can also be included, which will appear in the control panel.
 
 Modules can fetch the current weather from `/api/weather` or `/api/all-weather` if a weather config is provided.
+
+Modules can also query `/api/sun` for sunrise and sunset times. These results are graciously made available by [Sunrise-Sunset.org](https://sunrise-sunset.org). Weather must be configured for this endpoint to work. Otherwise the module can optionally [query the service directly](https://sunrise-sunset.org/api), but this is discouraged since Showpiece isn't able to restrict the number of API calls to a reasonable amount.

@@ -21,7 +21,8 @@
     "ejs": "3.1.6",
     "express": "^4.17.2",
     "express-ws": "5.0.2",
-    "json5": "^2.2.0"
+    "json5": "^2.2.0",
+    "phin": "3.6.1"
   },
   "devDependencies": {
     "tailwindcss": "^3.0.7"

@@ -1,5 +1,18 @@
+const phin = require('phin');
+
 const CACHEPERIOD = 5;
 const MINUTES = 60000;
+const DAY = 86400000;
+
+function tomorrow() {
+    let d = new Date();
+    d = new Date(d.getTime() + DAY);
+    d.setHours(0);
+    d.setMinutes(0);
+    d.setSeconds(0);
+    d.setMilliseconds(0);
+    return d;
+}
 
 async function createWeatherApi(options) {
     const AsyncWeather = (await import('@cicciosgamino/openweather-apis')).AsyncWeather;
@@ -33,37 +46,27 @@ async function createWeatherApi(options) {
     return weather;
 }
 
-class Weather {
-    constructor() {
+class SunriseSunset {
+    constructor(location) {
+        this._location = location;
         this._state = {
             expiration: new Date()
         }
-        this._simplestate = {
-            expiration: new Date()
-        }
     }
 
-    prepareApi = async (options) => {
-        this._weather = await createWeatherApi(options);
-    }
-
-    getSimpleWeather = async () => {
-        let now = new Date();
-        if (now >= this._simplestate.expiration) {
-            this._simplestate.weather = await this._weather.getSmartJSON();
-            this._simplestate.expiration = new Date(now.getTime() + CACHEPERIOD * MINUTES);
-        }
-        return this._simplestate.weather;
-    }
-
-    getAllWeather = async () => {
+    getSunrise = async () => {
         let now = new Date();
         if (now >= this._state.expiration) {
-            this._state.weather = await this._weather.getAllWeather();
-            this._state.expiration = new Date(now.getTime() + CACHEPERIOD * MINUTES);
+            console.log('Calling API');
+            let resp = await phin({
+                url: `https://api.sunrise-sunset.org/json?lat=${this._location.latitude}&lng=${this._location.longitude}&date=today&formatted=0`,
+                parse: 'json'
+            });
+            resp.body.results.expiration = tomorrow();
+            this._state = resp.body.results;
         }
-        return this._state.weather;
+        return this._state;
     }
 }
 
-module.exports = Weather;
+module.exports = SunriseSunset;

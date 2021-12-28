@@ -1,5 +1,6 @@
 const express = require('express');
 const weather = require('./weather');
+const sun = require('./sunrise-sunset');
 const version = require('./version');
 
 const VIEWOPTIONS = {
@@ -37,7 +38,17 @@ class Client {
         });
 
         if(options.weather && options.weather.key){
-            let w = new weather(options.weather);
+            let w = new weather();
+            w.prepareApi(options.weather).then(async () => {
+                let results = await w.getAllWeather();
+                let s = new sun({
+                    latitude: results.coord.lat,
+                    longitude: results.coord.lon
+                });
+                app.get('/api/sun', async (req, res) => {
+                    res.send(await s.getSunrise());
+                });
+            });
             app.get('/api/weather', async (req, res) => {
                 res.send(await w.getSimpleWeather());
             });

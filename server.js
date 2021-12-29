@@ -29,11 +29,11 @@ class Server {
         app.ws('/control', (ws, req) => {
             clients.push(ws);
             console.log(`new client connected: ${req.ip}`);
-            this.send(this._current);
+            this.send(this._current, [ws]);
             this.send({
                 type: 'version',
                 body: version
-            });
+            }, [ws]);
             ws.on('close', (ws) => {
                 clients.splice(clients.indexOf(ws), 1);
                 console.log(`client disconnected: ${req.ip}`);
@@ -76,13 +76,13 @@ class Server {
         }
     }
 
-    send(payload) {
-        this._clients.forEach((ws, index) => {
+    send(payload, clients = this._clients) {
+        clients.forEach((ws, index) => {
             try {
                 ws.send(JSON.stringify(payload));
             }
             catch {
-                this._clients.splice(index, 1);
+                clients.splice(index, 1);
             }
         });
     }

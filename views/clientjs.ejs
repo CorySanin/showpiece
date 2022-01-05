@@ -1,6 +1,25 @@
 document.addEventListener('DOMContentLoaded', function () {
     const loc = window.location;
     const server = `${loc.protocol === 'https:' ? 'wss' : 'ws'}://${loc.host}/control`;
+    var width = 0;
+    var height = 0;
+
+    (function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        width = parseInt(urlParams.get('w')) || 0;
+        height = parseInt(urlParams.get('h')) || 0;
+    })();
+
+    function createIFrame() {
+        var iframe = document.createElement('iframe');
+        if (width) {
+            iframe.style.width = `${width}px`;
+        }
+        if (height) {
+            iframe.style.height = `${height}px`;
+        }
+        return iframe;
+    }
 
     function handlemessage(data) {
         const msg = JSON.parse(data.data);
@@ -14,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
         else if (msg.type === 'url') {
-            var iframe = document.createElement('iframe');
+            var iframe = createIFrame();
             iframe.src = msg.body;
             iframe.style['z-index'] = -100;
             document.body.append(iframe);

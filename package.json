@@ -8,6 +8,7 @@
     "url": "git+https://github.com/CorySanin/showpiece.git"
   },
   "scripts": {
+    "start": "node index.js",
     "build": "tailwindcss -i ./styles/control.css -o ./assets/css/control.css",
     "watch": "tailwindcss -i ./styles/control.css -o ./assets/css/control.css --watch"
   },

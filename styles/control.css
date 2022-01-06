@@ -81,6 +81,12 @@ input[type="submit"]:active,
     background-color: theme('colors.indigo.800');
 }
 
+.form-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: .5em;
+}
+
 #sidebar {
     background-color: theme('colors.indigo.700');
     color: theme('colors.indigo.50');
@@ -117,12 +123,31 @@ input[type="submit"]:active,
     transition: margin .25s ease;
 }
 
-.tablelist>button {
+.tablelist>div {
+    position: relative;
+}
+
+.tablelist>div>button.expand-btn {
+    position: absolute;
+    right: 1em;
+    top: 0;
+    height: 100%;
+    padding: 1em;
+    border-radius: 0;
+}
+
+.tablelist>div {
+    border: 1px solid theme('colors.indigo.300');
+    border-bottom: none;
+    border-radius: 0;
+}
+
+.tablelist>div>button.module-btn {
     display: block;
     width: 100%;
     text-align: left;
     height: 100px;
-    border: 1px solid theme('colors.indigo.300');
+    border-radius: 0;
     background-color: transparent;
     line-height: 80px;
     padding: 5px;
@@ -132,29 +157,52 @@ input[type="submit"]:active,
     user-select: none;
 }
 
-.tablelist>button:hover,
-.tablelist>button:focus {
+.tablelist>div>button.module-btn:hover,
+.tablelist>div>button.module-btn:focus {
     color: #fff;
     background-color: theme('colors.indigo.600');
 }
 
-.tablelist>button:active,
-.tablelist>button.active {
+.tablelist>div>button.module-btn:active,
+.tablelist>div>button.module-btn.active {
     color: #fff;
     background-color: theme('colors.indigo.800');
 }
 
-.tablelist>button:first-of-type {
+.tablelist>div:first-of-type,
+.tablelist>div:first-of-type>button.module-btn {
     border-radius: .75em .75em 0 0;
 }
 
-.tablelist>button:nth-last-of-type(1) {
-    border-bottom-left-radius: .75em;
-    border-bottom-right-radius: .75em;
+.tablelist>div:nth-last-of-type(1),
+.tablelist>div.collapsed:nth-last-of-type(1)>button.module-btn {
+    border-radius: 0 0 .75em .75em;
 }
 
-.tablelist>button:nth-of-type(n + 2) {
+.tablelist>div:nth-last-of-type(1) {
+    border-bottom: 1px solid theme('colors.indigo.300');
+}
+
+.tablelist>div:nth-of-type(n + 2)>button {
     border-top: none;
+}
+
+.tablelist>div.collapsed form {
+    display: none;
+}
+
+.tablelist>div.collapsed .collapse,
+.tablelist>div .expand {
+    display: none;
+}
+
+.tablelist>div.collapsed .expand,
+.tablelist>div .collapse{
+    display: initial;
+}
+
+.tablelist form {
+    padding: .5em .8em;
 }
 
 @media screen and (max-width: 675px) {
@@ -168,7 +216,7 @@ input[type="submit"]:active,
 }
 
 @media screen and (max-width: 320px) {
-    .tablelist>button img {
+    .tablelist>div>button.module-btn img {
         display: none;
     }
 }

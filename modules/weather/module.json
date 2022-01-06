@@ -1,0 +1,19 @@
+{
+    "name": "Weather Glass",
+    "description": "See live weather effects",
+    "icon": "icon.png",
+    "parameters": [
+        {
+            "name": "Metric Units",
+            "param": "metric",
+            "type": "bool",
+            "default": true
+        },
+        {
+            "name": "24 Hour Clock",
+            "param": "24h",
+            "type": "bool",
+            "default": true
+        }
+    ]
+}

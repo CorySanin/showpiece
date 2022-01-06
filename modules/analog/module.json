@@ -1,0 +1,13 @@
+{
+    "name": "Swanky Analog",
+    "description": "This face has a pulse",
+    "icon": "icon.png",
+    "parameters": [
+        {
+            "name": "Color",
+            "param": "color",
+            "type": "color",
+            "default": "#03A9F4"
+        }
+    ]
+}

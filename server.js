@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const fsp = fs.promises;
+const json5 = require('json5');
 const express = require('express');
 const ExpressWS = require('express-ws');
 const version = require('./version');
@@ -93,16 +94,18 @@ class Server {
         for (const index in dirs) {
             const dir = dirs[index];
             let obj = {
-                name: dir.name
+                name: dir.name,
             };
             try {
-                let icon = path.join(MODULES, dir.name, 'icon.png');
-                await fsp.stat(icon);
-                obj.icon = `/${icon}`;
+                obj = json5.parse(await fsp.readFile(path.join(MODULES, dir.name, 'module.json')));
+                if (obj.icon) {
+                    obj.icon = `/${path.join(MODULES, dir.name, obj.icon)}`;
+                }
             }
             catch {
-                obj.icon = null;
+                console.log(`Module metadata for ${dir.name} could not be loaded`);
             }
+            obj.path = dir.name;
             result.push(obj);
         }
         return result;

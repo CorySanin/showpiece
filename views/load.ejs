@@ -25,10 +25,28 @@
                 <h2>Module</h2>
                 <div class="tablelist" id="modules">
                     <% modules.forEach(function(module) { %>
-                        <button>
-                            <% if (module.icon) { %><img alt="<%= module.name %> module" class="max-h-full inline-block" src="<%= module.icon %>" /><% } %>
-                            <span class="module-name ml-2"><%= module.name %></span>
-                        </button>
+                        <div class="collapsed">
+                            <button class="module-btn">
+                                <% if (module.icon) { %><img alt="<%= module.name %> module" class="max-h-full inline-block" src="<%= module.icon %>" /><% } %>
+                                <span class="module-path hidden"><%= module.path %></span>
+                                <span class="module-name ml-2"><%= module.name %></span>
+                            </button>
+                            <% if (module.parameters) { %>
+                            <button class="expand-btn"><span class="expand">⬍</span><span class="collapse">⬆</span></button>
+                            <form>
+                                <div class="form-grid">
+                                    <% module.parameters.forEach(function(param) { %>
+                                        <label><%= param.name %></label>
+                                        <% if (param.type === 'color') { %>
+                                            <input type="color" name="<%= param.param %>" value="<%= param.default || '' %>">
+                                        <% } else if (param.type === 'bool' || param.type === 'boolean') { %>
+                                            <div><input type="checkbox" name="<%= param.param %>" <% if (param.default) { echo("checked") } %>></div>
+                                        <% } %>
+                                    <% }); %>
+                                </div>
+                            </form>
+                            <% } %>
+                        </div>
                         <% }); %>
                 </div>
             </div>

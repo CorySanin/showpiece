@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 s.x = -wrapTolerance;
             }
             s.y += s.speedy * delta;
-            if (s.y > pixi.view.height || s.graphic.alpha <= 0) {
+            if (s.y > pixi.view.height + 15 || s.graphic.alpha <= 0) {
                 s.graphic.destroy();
                 sprites.splice(index, 1);
             }

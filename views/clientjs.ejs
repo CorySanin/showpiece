@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const msg = JSON.parse(data.data);
         if (msg.type === 'module') {
             msg.type = 'url';
-            msg.body = `/modules/${msg.body}/`
+            msg.body = `/modules/${msg.body}`
         }
         if (msg.type === 'version') {
             if (msg.body !== <%= version %>) {

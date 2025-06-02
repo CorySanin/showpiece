@@ -1,4 +1,5 @@
-FROM public.ecr.aws/docker/library/node:16-alpine3.14
+FROM node:lts-alpine AS base
+FROM base
 
 WORKDIR /usr/src/showpiece
 
@@ -13,4 +14,4 @@ RUN npm run build
 USER node
 
 EXPOSE 8080
-CMD [ "node", "index.js"]
+CMD [ "node", "--experimental-strip-types", "src/index.ts"]

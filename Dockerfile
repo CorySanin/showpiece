@@ -1,5 +1,5 @@
 FROM node:lts-alpine AS base
-FROM base
+FROM base AS deploy
 
 WORKDIR /usr/src/showpiece
 

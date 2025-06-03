@@ -1,6 +1,6 @@
 {
   "name": "showpiece",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A simple digital signage solution built on the web",
   "main": "src/index.ts",
   "type": "module",

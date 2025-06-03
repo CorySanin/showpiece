@@ -20,6 +20,14 @@ document.addEventListener('DOMContentLoaded', function () {
         clock24h = string === null || string === 'true';
     }
 
+    function getHours(hours, mod) {
+        const h = hours % mod;
+        if (h === 0) {
+            return mod;
+        }
+        return h;
+    }
+
     function updateTime() {
         var d = new Date();
         var hours = d.getHours();
@@ -28,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
             suffix = ' ' + (Math.floor(hours / 12) ? 'PM' : 'AM');
         }
 
-        emptyElement(time).appendChild(document.createTextNode(`${('' + (hours % (clock24h ? 24 : 12))).padStart(clock24h ? 2 : 1, '0')}:${('' + d.getMinutes()).padStart(2, '0')}${suffix}`));
+        emptyElement(time).appendChild(document.createTextNode(`${('' + getHours(hours, clock24h ? 24 : 12)).padStart(clock24h ? 2 : 1, '0')}:${('' + d.getMinutes()).padStart(2, '0')}${suffix}`));
         resizeTemp();
         setDayNight(d);
         setTimeout(updateTime, minute - (d.getTime() % minute));
@@ -42,8 +50,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function formatTemp(t) {
-        if (!metric) {
-            t = t * 1.8 + 32;
+        if (metric) {
+            t = (t - 32) / 1.8;
         }
         return `${Math.round(t)}°`;
     }
@@ -65,16 +73,16 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch('/api/all-weather')
             .then(resp => resp.json())
             .then(weather => {
-                currentWeather = weather;
+                currentWeather = weather.list[0];
                 weatherdiv.classList.forEach(function (c) {
                     weatherdiv.classList.remove(c);
                 });
-                weather.weather.forEach(function (w) {
+                currentWeather.weather.forEach(function (w) {
                     weatherdiv.classList.add(w.main);
                 });
-                emptyElement(temp).appendChild(document.createTextNode(formatTemp(weather.main.temp)));
-                emptyElement(high).appendChild(document.createTextNode(formatTemp(weather.main.temp_max) + '⭎'));
-                emptyElement(low).appendChild(document.createTextNode(formatTemp(weather.main.temp_min) + '⭏'));
+                emptyElement(temp).appendChild(document.createTextNode(formatTemp(currentWeather.main.temp)));
+                emptyElement(high).appendChild(document.createTextNode(formatTemp(currentWeather.main.temp_max) + '⭎'));
+                emptyElement(low).appendChild(document.createTextNode(formatTemp(currentWeather.main.temp_min) + '⭏'));
             });
     }
 

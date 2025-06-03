@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
             msg.body = `/modules/${msg.body}`
         }
         if (msg.type === 'version') {
-            if (msg.body !== <%= version %>) {
+            if (msg.body !== '<%= Version %>') {
                 location.reload(true);
             }
         }

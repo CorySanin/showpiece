@@ -1,21 +1,24 @@
-const express = require('express');
-const weather = require('./weather');
-const sun = require('./sunrise-sunset');
-const version = require('./version');
+import express from 'express';
+import SunriseSunset from './sunrise-sunset.ts';
+import Weather from './weather.ts';
+import Version from './version.ts';
+import type { AppOptions } from './index.ts';
 
 const VIEWOPTIONS = {
     outputFunctionName: 'echo'
 };
 
 class Client {
-    constructor(options = {}) {
-        const app = this._app = express();
+    private app: express.Application;
+    constructor(options: AppOptions = {}) {
+        const app: express.Application = this.app = express();
         app.set('view engine', 'ejs');
         app.set('view options', VIEWOPTIONS);
 
-        app.get('/', (req, res) => {
+        app.get('/', (_, res) => {
             res.render('client', {}, (err, html) => {
                 if (!err) {
+                    res.setHeader('Access-Control-Allow-Origin', '*');
                     res.send(html);
                 }
                 else {
@@ -26,7 +29,7 @@ class Client {
 
         app.get('/client.js', (req, res) => {
             res.render('clientjs', {
-                version
+                Version
             }, (err, js) => {
                 if (!err) {
                     res.type('text/javascript').send(js);
@@ -38,30 +41,30 @@ class Client {
         });
 
         if(options.weather && options.weather.key){
-            let w = new weather();
-            w.prepareApi(options.weather).then(async () => {
-                let results = await w.getAllWeather();
-                let s = new sun({
-                    latitude: results.coord.lat,
-                    longitude: results.coord.lon
+            const w = new Weather(options.weather);
+            w.getAllWeather().then((resp) => {
+                const s = new SunriseSunset({
+                    latitude: resp.city.coord.lat,
+                    longitude: resp.city.coord.lon
                 });
-                app.get('/api/sun', async (req, res) => {
+                app.get('/api/sun', async (_, res) => {
                     res.send(await s.getSunrise());
                 });
             });
-            app.get('/api/weather', async (req, res) => {
+            app.get('/api/weather', async (_, res) => {
                 res.send(await w.getSimpleWeather());
             });
 
-            app.get('/api/all-weather', async (req, res) => {
+            app.get('/api/all-weather', async (_, res) => {
                 res.send(await w.getAllWeather());
             });
         }
     }
 
-    middleware() {
-        return this._app;
+    middleware(): express.Application {
+        return this.app;
     }
 }
 
-module.exports = Client;
+export default Client;
+export { Client };
